@@ -1,0 +1,27 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+
+ <div class="container">
+	 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+	  	<sec:authorize access="hasAuthority('admin')">
+			<a class="navbar-brand" href="${contextPath}/admin">Admin Page</a>
+		</sec:authorize>
+		<a class="navbar-brand" href="${contextPath}/">Main Page</a>
+	 	<a class="navbar-brand" href="${contextPath}/recipe_filter">Filter recipies</a>
+		<!--   jezeli zalogowany uzytkownik-->      
+		<c:if test="${pageContext.request.userPrincipal.name != null}">
+			<a class="navbar-brand" href="${contextPath}/recipies">My Recipies</a>
+			<form id="logoutForm" method="POST" action="${contextPath}/logout">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<a class="navbar-brand" onclick="document.forms['logoutForm'].submit()">Logout</a>
+			</form>
+		</c:if>
+		<!--   jezeli nie zalogowany uzytkownik-->      
+		<c:if test="${pageContext.request.userPrincipal.name == null}">
+			<a class="navbar-brand" href="${contextPath}/login">Log in</a>
+			<a class="navbar-brand" href="${contextPath}/registration">Create account</a> 
+		</c:if>
+
+	 </nav>
+ </div>
+ <br><br>
