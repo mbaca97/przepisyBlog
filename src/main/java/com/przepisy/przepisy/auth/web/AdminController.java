@@ -34,23 +34,31 @@ public class AdminController {
     @GetMapping("/admin")
     public String admin(Model model) {
         model.addAttribute("recipeIdForm", new Recipe());
+    	model.addAttribute("recipeList", recipeService.getAllRecipies());
 
         return "admin";
     }
     
-    @PostMapping("/admin")
-    public String adminDelete(@ModelAttribute("recipeIdForm") Recipe recipeToDelete, Model model) {
-    	Long id;
-    	try {
-    		id = Long.parseLong(recipeToDelete.getLvl());
-    		recipeService.deleteById(id);
-    		model.addAttribute("success", "You successfully deleted recipe with id: "+id);
-		}
-		catch (Exception e)
-		{
-			model.addAttribute("success", "Recipe was not deleted");
-		}
-        
-        return "admin";
+//    @PostMapping("/admin")
+//    public String adminDelete(@ModelAttribute("recipeIdForm") Recipe recipeToDelete, Model model) {
+//    	Long id;
+//    	try {
+//    		id = Long.parseLong(recipeToDelete.getLvl());
+//    		recipeService.deleteById(id);
+//    		model.addAttribute("success", "You successfully deleted recipe with id: "+id);
+//		}
+//		catch (Exception e)
+//		{
+//			model.addAttribute("success", "Recipe was not deleted");
+//		}
+//        
+//        return "admin";
+//    }
+    
+    
+    @PostMapping("/admin/{id}")
+    public String adminDeleteId(@ModelAttribute("recipeIdForm") Recipe recipeToDelete,@PathVariable Long id,  Model model) {
+    	recipeService.deleteById(id);
+        return "redirect:/admin";
     }
 }

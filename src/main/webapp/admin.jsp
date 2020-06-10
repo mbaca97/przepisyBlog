@@ -5,24 +5,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <meta charset="utf-8">
-    <title>Recipe</title>
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <title>Admin</title>
+          <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+      <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 </head>
 <body>
 <%@ include file="fragments/navigation.jspf" %>
   <div class="container">
-  	Write id of recipe to delete: <br><br>
-  	<form method="POST" modelAttribute="recipeIdForm" action="${contextPath}/admin">
-		<div class="form-group ">
-			Id:
-			<input name="lvl" type="text" class="form-control" placeholder=""
-			               autofocus="true"/>
-	        <button class="btn btn-lg btn-primary btn-block" type="submit">Filter</button>
-        </div>
-     </form>
- 	 ${success}
-  </div>
+	<c:forEach items="${recipeList}" var="recipe">
+		<div class="row">
+		  <div class="span8">
+		    <div class="row">
+		      <div class="span8">
+		        <h4><strong>${recipe.getId()}. ${recipe.getName()}</strong></h4>
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="span2">
+		        <p class="thumbnail">
+		           <img  src="/getRecipePhoto/<c:out value='${recipe.getId()}'/>" alt="Picture">
+		        </p>
+		      </div>
+		      <div class="span6">      
+		        <p>
+		        
+		        <b>Level:</b> ${recipe.getLvl()}<br>
+		        Time: ${recipe.getTime()}<br>
+		        </p>
+		        <p><a class="btn" href="${contextPath}/recipe/${recipe.getId()}">Read more</a></p>
+		          <form method="POST" modelAttribute="recipeToDelete" action="${contextPath}/admin/${recipe.getId()}">
+				        <button class="btn" type="submit">Delete</button>
+			     </form>
+			     <br>
+			  </div>
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="span8">
+		        <p></p>
+		        <p>
+		          <i class="icon-user"></i> Created by: <b>${recipe.getUser().getUsername()}</b></a> 
+		          | <span class="label label-info">${recipe.getFoodKind()}</span>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		<hr>
+	
+	</c:forEach>							
+</div>
+  
+  
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="${contextPath}/resources/js/bootstrap.min.js"></script>

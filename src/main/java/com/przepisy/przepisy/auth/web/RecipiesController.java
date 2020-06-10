@@ -54,17 +54,10 @@ public class RecipiesController {
     
     @GetMapping("/recipies")
     public String recipies(Model model) {
-		/*
-		 * // model.addAttribute("recipies", recipeService.userRecipies(userForm));
-		 */    	
-//    	List<Recipe> list = new ArrayList<>();
-//    	list.addAll(recipeService.getRecipies()); // znajdz wszystkie recipies dla zalogowanego użytkownika i zapisz je do listy
         model.addAttribute("recipeForm", new Recipe());
-
     	model.addAttribute("recipeList", recipeService.getRecipies());
         return "recipies";
     }
-    //@ModelAttribute("recipeForm") Recipe recipeForm, 
     @PostMapping("/recipies")
     public String addRecipies(@RequestParam("photo") MultipartFile coto, 
     		@RequestParam("description") String description, 

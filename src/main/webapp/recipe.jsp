@@ -11,18 +11,47 @@
 </head>
 <body>
 <%@ include file="fragments/navigation.jspf" %>
-
-  <div class="container">
-        <!-- wypisuje descriptiony recipie-->
-            ID: ${recipeById.getId()}<br>
-            Food Kind: ${recipeById.getFoodKind()}<br>
-            Level: ${recipeById.getLvl()}<br>
-            Description: ${recipeById.getDescription()}<br>
-        	Time: ${recipeById.getTime()}<br>
-        	<hr>
-          <div class="container">
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<div class="container">
+		<div class="row">
+		  <div class="span8">
+		    <div class="row">
+		      <div class="span8">
+		        <h4><strong>${recipeById.getId()}. ${recipeById.getName()}</strong></h4>
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="span2">
+		        <p class="thumbnail">
+		           <img  src="/getRecipePhoto/<c:out value='${recipeById.getId()}'/>" alt="Picture">
+		        </p>
+		      </div>
+		      <div class="span6">
+		      <b>Description</b><br>      
+		        <p>
+		        ${recipeById.getDescription()}
+		        </p>
+		        <b>Level:</b> ${recipeById.getLvl()}
+		        | Time: ${recipeById.getTime()}<br>
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="span8">
+		        <p></p>
+		        <p>
+		          <i class="icon-user"></i> Created by: <b>${recipeById.getUser().getUsername()}</b></a> 
+		          | <span class="label label-info">${recipeById.getFoodKind()}</span>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<hr>
+	</div>
+    <div class="container">
 	      <form method="POST" modelAttribute="commentForm" action="${contextPath}/recipe/${recipeById.getId()}">
-	
 	        <div class="form-group ">
 	        	<c:if test="${pageContext.request.userPrincipal.name != null}">
 		        	Comment<br>
@@ -33,7 +62,7 @@
 	        </div>
 	      </form>
 	    </div>
-	    <div class="container">
+  	    <div class="container">
 			Comments:<br><br>	    
 	        <!-- wypisuje wszystkie komentarze -->
 	        <c:forEach items="${commentToRecipe}" var="comment">
@@ -43,7 +72,7 @@
 	        	<hr>
 	        </c:forEach>
 	    </div>
-  </div>
+ 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
