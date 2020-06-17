@@ -28,9 +28,7 @@ public class User {
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Set<Comment> comments;
-    
-    private String role;
-    
+        
     public Long getId() {
         return id;
     }
@@ -78,12 +76,4 @@ public class User {
     public void setRecipies(Set<Recipe> recipies) {
         this.recipies = recipies;
     }
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
 }
